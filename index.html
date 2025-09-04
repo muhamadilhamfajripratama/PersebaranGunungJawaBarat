@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet.photon.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.photon.js"></script>
+        <script src="data/BATASDESA2017KEMENDES_1.js"></script>
+        <script src="data/TitikKoordinatGunung_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[-7.885935307706605,106.34418525715142],[-6.321567021755565,109.3365414945137]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        // add class to format popup if it contains media
+		function addClassToPopupIfMedia(content, popup) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = content;
+			if (tempDiv.querySelector('td img')) {
+				popup._contentNode.classList.add('media');
+					// Delay to force the redraw
+					setTimeout(function() {
+						popup.update();
+					}, 10);
+			} else {
+				popup._contentNode.classList.remove('media');
+			}
+		}
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleEarthSatelite_0');
+        map.getPane('pane_GoogleEarthSatelite_0').style.zIndex = 400;
+        var layer_GoogleEarthSatelite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleEarthSatelite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GoogleEarthSatelite_0;
+        map.addLayer(layer_GoogleEarthSatelite_0);
+        function pop_BATASDESA2017KEMENDES_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID'] !== null ? autolinker.link(String(feature.properties['FID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROVNO'] !== null ? autolinker.link(String(feature.properties['PROVNO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KABKOTNO'] !== null ? autolinker.link(String(feature.properties['KABKOTNO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KECNO'] !== null ? autolinker.link(String(feature.properties['KECNO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESANO'] !== null ? autolinker.link(String(feature.properties['DESANO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROVINSI'] !== null ? autolinker.link(String(feature.properties['PROVINSI']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KABKOT</th>\
+                        <td>' + (feature.properties['KABKOT'] !== null ? autolinker.link(String(feature.properties['KABKOT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KECAMATAN'] !== null ? autolinker.link(String(feature.properties['KECAMATAN']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESA'] !== null ? autolinker.link(String(feature.properties['DESA']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IDDESA'] !== null ? autolinker.link(String(feature.properties['IDDESA']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TAHUN'] !== null ? autolinker.link(String(feature.properties['TAHUN']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUMBER'] !== null ? autolinker.link(String(feature.properties['SUMBER']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL unt'] !== null ? autolinker.link(String(feature.properties['DESKEL unt']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_1'] !== null ? autolinker.link(String(feature.properties['DESKEL u_1']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_2'] !== null ? autolinker.link(String(feature.properties['DESKEL u_2']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_3'] !== null ? autolinker.link(String(feature.properties['DESKEL u_3']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_4'] !== null ? autolinker.link(String(feature.properties['DESKEL u_4']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_5'] !== null ? autolinker.link(String(feature.properties['DESKEL u_5']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_6'] !== null ? autolinker.link(String(feature.properties['DESKEL u_6']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_7'] !== null ? autolinker.link(String(feature.properties['DESKEL u_7']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESKEL u_8'] !== null ? autolinker.link(String(feature.properties['DESKEL u_8']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_BATASDESA2017KEMENDES_1_0(feature) {
+            switch(String(feature.properties['KABKOT'])) {
+                case 'BANDUNG':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,101,142,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'BANDUNG BARAT':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,228,50,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'BANJAR':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(17,100,202,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'BEKASI':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,19,203,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'BOGOR':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,19,143,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'CIAMIS':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,230,234,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'CIANJUR':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,236,15,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'CIMAHI':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,182,82,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'CIREBON':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,161,106,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'DEPOK':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(121,209,189,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'GARUT':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,124,230,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'INDRAMAYU':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,91,220,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'KARAWANG':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,159,205,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'KUNINGAN':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,238,142,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'MAJALENGKA':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,220,123,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'PANGANDARAN':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(207,59,76,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'PURWAKARTA':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(163,66,232,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'SUBANG':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(23,215,71,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'SUKABUMI':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,234,27,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'SUMEDANG':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(200,115,190,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'TASIKMALAYA':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(24,219,125,0.527)',
+                interactive: true,
+            }
+                    break;
+                case 'WADUK CIRATA':
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(91,27,219,0.527)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_BATASDESA2017KEMENDES_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.527)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(233,59,28,0.527)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_BATASDESA2017KEMENDES_1');
+        map.getPane('pane_BATASDESA2017KEMENDES_1').style.zIndex = 401;
+        map.getPane('pane_BATASDESA2017KEMENDES_1').style['mix-blend-mode'] = 'normal';
+        var layer_BATASDESA2017KEMENDES_1 = new L.geoJson(json_BATASDESA2017KEMENDES_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BATASDESA2017KEMENDES_1',
+            layerName: 'layer_BATASDESA2017KEMENDES_1',
+            pane: 'pane_BATASDESA2017KEMENDES_1',
+            onEachFeature: pop_BATASDESA2017KEMENDES_1,
+            style: style_BATASDESA2017KEMENDES_1_0,
+        });
+        bounds_group.addLayer(layer_BATASDESA2017KEMENDES_1);
+        map.addLayer(layer_BATASDESA2017KEMENDES_1);
+        function pop_TitikKoordinatGunung_2(feature, layer) {
+            var fotoHtml = '';
+            if (feature.properties['Foto']) {
+                fotoHtml = '<img src="' + feature.properties['Foto'] + '" style="max-width:200px;max-height:150px;display:block;margin-top:5px;"/>';
+            }
+
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['No'] !== null ? String(feature.properties['No']) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Gunung</th>\
+                        <td>' + (feature.properties['Nama Gunung'] !== null ? String(feature.properties['Nama Gunung']) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? String(feature.properties['Latitude']) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? String(feature.properties['Longitude']) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Foto</th>\
+                        <td>' + fotoHtml + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ketinggian</th>\
+                        <td>' + (feature.properties['Ketinggian'] !== null ? String(feature.properties['Ketinggian']) : '') + '</td>\
+                    </tr>\
+                </table>';
+
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_TitikKoordinatGunung_2_0() {
+            return {
+                pane: 'pane_TitikKoordinatGunung_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/TitikKoordinatGunung_2.svg',
+            iconSize: [76.0, 76.0]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_TitikKoordinatGunung_2');
+        map.getPane('pane_TitikKoordinatGunung_2').style.zIndex = 402;
+        map.getPane('pane_TitikKoordinatGunung_2').style['mix-blend-mode'] = 'normal';
+        var layer_TitikKoordinatGunung_2 = new L.geoJson(json_TitikKoordinatGunung_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TitikKoordinatGunung_2',
+            layerName: 'layer_TitikKoordinatGunung_2',
+            pane: 'pane_TitikKoordinatGunung_2',
+            onEachFeature: pop_TitikKoordinatGunung_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_TitikKoordinatGunung_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_TitikKoordinatGunung_2);
+        map.addLayer(layer_TitikKoordinatGunung_2);
+        setBounds();
+        resetLabels([layer_BATASDESA2017KEMENDES_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_BATASDESA2017KEMENDES_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_BATASDESA2017KEMENDES_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_BATASDESA2017KEMENDES_1]);
+        });
+        </script>
+    </body>
+</html>

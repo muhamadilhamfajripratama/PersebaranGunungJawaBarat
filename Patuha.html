@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mystic Crater - Mount Patuha</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Font Awesome (versi terbaru & stabil) -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+  />
+  <style>
+    /* Custom gradient letter ELEVATE */
+    .gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #d1d1d1 40%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+    /* Overlay brush effect */
+    .background-overlay {
+      position: absolute;
+      inset: 0;
+      background: url("images/BG.png");
+      background-size: cover;
+      opacity: 0.7;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    html {
+      scroll-behavior: smooth; /* biar animasi scroll smooth */
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white font-sans">
+
+<!-- Navigation -->
+<nav class="flex justify-between items-center p-6 relative z-10">
+  <!-- Left logo -->
+  <div class="flex items-center space-x-2">
+    <img src="images/GIS.png" alt="Logo GIS" class="h-12 w-12 object-contain" />
+  </div>
+  <!-- Center nav -->
+  <nav class="space-x-8 text-sm uppercase">
+    <a href="Tes2.html#home" class="hover:text-gray-300">Home</a>
+    <a href="Tes2.html#highlights" class="hover:text-gray-300">Highlights</a>
+    <a href="Tes2.html#map" class="hover:text-gray-300">Map</a>
+    <a href="Tes2.html#about" class="hover:text-gray-300">About</a>
+  </nav>
+  <!-- Right logo -->
+  <div>
+    <img src="images/MBC.png" alt="Logo MBC LAB" class="h-10 w-auto object-contain" />
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center">
+  <img src="images/BG.png" alt="Mountain" class="absolute inset-0 w-full h-full object-cover opacity-60">
+  <h1 class="relative text-5xl font-bold gradient-text">Mystic Crater</h1>
+</section>
+
+  <!-- Content Section -->
+  <section class="max-w-4xl mx-auto px-6 py-12 bg-black">
+    <h2 class="text-3xl font-bold mb-6">Mount Patuha</h2>
+
+    <!-- Image Card -->
+    <div class="rounded-lg overflow-hidden shadow-lg mb-6">
+      <img src="https://cdn1-production-images-kly.akamaized.net/licFFYYxU4KRCVdFu_7RjCtrVSE=/800x450/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4636621/original/096410800_1699196651-WhatsApp_Image_2023-11-05_at_22.02.37.jpeg" alt="Gunung Ciremai" class="w-full object-cover">
+    </div>
+
+    <!-- Fun Fact -->
+    <h3 class="text-xl font-semibold mb-2">Fun Fact</h3>
+    <p class="text-gray-200 leading-relaxed mb-6">
+      Gunung Patuha (2.434 mdpl) berada di Kabupaten Bandung, Jawa Barat, dan termasuk gunung api aktif dengan sejarah geologi unik. Gunung ini terkenal dengan Kawah Putih, sebuah danau kawah berwarna putih kehijauan yang bisa berubah warna sesuai kadar belerang, suhu, dan cuaca—menjadi salah satu destinasi wisata alam paling populer di Bandung. Nama Patuha berasal dari bahasa Sunda yang berarti “sepuh” atau “tua”, karena gunung ini dianggap sebagai gunung tertua di kawasan Bandung Selatan. Gunung Patuha juga punya beberapa kawah lain yang jarang diketahui, seperti Kawah Saat dan Kawah Rengganis, yang lebih alami dan memiliki sumber air panas belerang.
+    </p>
+
+    <!-- Tips Section -->
+    <h3 class="text-xl font-semibold mb-2">Tips Pendakian</h3>
+    <ol class="list-decimal list-inside space-y-2 text-gray-200">
+      <li>Jalur populer: menuju Kawah Putih (wisata) atau jalur pendakian ke puncak via perkebunan teh.</li>
+      <li>Estimasi waktu: 4–6 jam perjalanan menuju puncak dari kaki gunung.</li>
+      <li>Perlengkapan wajib: jaket tebal, raincoat, masker/buff (untuk bau belerang), sepatu gunung, dan air minum.</li>
+      <li>Logistik: bawa cukup bekal karena minim warung di jalur pendakian, berbeda dengan area wisata Kawah Putih.</li>
+      <li>Masker khusus: sangat dianjurkan karena konsentrasi gas belerang bisa tinggi di area kawah.</li>
+      <li>Jangan lupa membawa kantong sampah untuk menjaga kebersihan.</li>
+      <li>Usahakan mendaki bersama tim, demi keselamatan & efisiensi.</li>
+      <li>Nikmati perjalanan dan selalu menghormati alam sekitar.</li>
+    </ol>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black py-8 mt-10 border-t border-gray-800">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+      
+      <!-- Kiri: Logo -->
+      <div class="flex items-center gap-4 mb-4 md:mb-0">
+        <img src="images/GIS.png" alt="MBC Logo" class="h-10">
+        <img src="images/MBC.png" alt="GIS Logo" class="h-10">
+      </div>
+
+      <!-- Kanan: Sosial media -->
+<div class="flex flex-col items-center md:items-end">
+  <div class="flex justify-center gap-6 text-2xl mb-2">
+    <a href="https://www.instagram.com/ilhammyrr_" target="_blank" class="hover:text-gray-400">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/muhammad-ilham-fajri-pratama" target="_blank" class="hover:text-gray-400">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </div>
+  <p class="text-sm text-gray-400">Created by Muhammad Ilham Fajri Pratama</p>
+</div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

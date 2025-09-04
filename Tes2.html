@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elevate - West Java Mountains</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    /* Custom gradient letter ELEVATE */
+    .gradient-text {
+      background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #b0b0b0 60%,
+        #a0a0a0 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* Overlay brush effect */
+    .background-overlay {
+      position: absolute;
+      inset: 0;
+      background: url("images/BG.png");
+      background-size: cover;
+      opacity: 0.7;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* tingginya sama dengan tinggi navbar */
+}
+  </style>
+</head>
+<body class="bg-black text-white font-sans">
+
+<!-- Navigation -->
+<nav class="flex justify-between items-center p-6 relative z-10">
+  <!-- Left logo -->
+  <div class="flex items-center space-x-2">
+    <img src="images/GIS.png" alt="Logo GIS" class="h-12 w-12 object-contain" />
+  </div>
+  <!-- Center nav -->
+  <nav class="space-x-8 text-sm uppercase">
+    <a href="Tes2.html#home" class="hover:text-gray-300">Home</a>
+    <a href="Tes2.html#highlights" class="hover:text-gray-300">Highlights</a>
+    <a href="Tes2.html#map" class="hover:text-gray-300">Map</a>
+    <a href="Tes2.html#about" class="hover:text-gray-300">About</a>
+  </nav>
+  <!-- Right logo -->
+  <div>
+    <img src="images/MBC.png" alt="Logo MBC LAB" class="h-10 w-auto object-contain" />
+  </div>
+</nav>
+
+
+  <!-- Hero Section -->
+  <section id="home" class="relative h-[80vh] flex flex-col justify-center items-center text-center bg-cover bg-center" 
+    style="background-image: url('images/BG.png');">
+    
+    <!-- Overlay Brush -->
+    <div class="background-overlay"></div>
+    <!-- Dark Layer -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    
+    <!-- Content -->
+    <div class="relative z-10 text-center">
+      <h1 class="text-8xl font-bold gradient-text">ELEVATE</h1>
+      <p class="mt-2 text-gray-200 mx-auto">Persebaran Gunung di Jawa Barat</p>
+      <div class="mt-6 flex justify-center gap-4">
+        <a href="#map" class="bg-red-600 px-6 py-2 rounded-lg font-semibold hover:bg-red-700">View Map</a>
+        <a href="summits.html" class="bg-green-600 px-6 py-2 rounded-lg font-semibold hover:bg-green-700">7 Summits</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Featured Mountains -->
+    <section id="highlights" class="pt-32 px-10 py-16">
+      <h2 class="text-2xl font-bold mb-8 text-white">Featured Mountains</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Card Mount Ciremai -->
+        <div class="bg-white text-black rounded-xl overflow-hidden shadow-lg relative">
+          <div class="bg-red-600 text-white px-3 py-1 text-xs font-semibold absolute">Highest Peak</div>
+          <a href="Ciremai.html">
+            <img src="https://travelspromo.com/wp-content/uploads/2021/02/Panorama-sawah-gunung-Ciremai.jpg" 
+                class="h-40 w-full object-cover block">
+          </a>
+          <div class="p-4">
+            <h3 class="font-bold">Mount Ciremai</h3>
+          </div>
+        </div>
+
+      
+      <div class="bg-white text-black rounded-xl overflow-hidden shadow-lg relative">
+        <div class="bg-red-600 text-white px-3 py-1 text-xs font-semibold absolute">Popular Hike</div>
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/64/24/e4/mount-papandayan-from.jpg?w=1200&h=1200&s=1" class="h-40 w-full object-cover">
+        <div class="p-4">
+          <h3 class="font-bold">Mount Papandayan</h3>
+        </div>
+      </div>
+
+      <div class="bg-white text-black rounded-xl overflow-hidden shadow-lg relative">
+        <div class="bg-red-600 text-white px-3 py-1 text-xs font-semibold absolute">Nature Reserve</div>
+        <img src="https://www.wisatagunung.com/wp-content/uploads/2022/06/1683483351.jpeg" class="h-40 w-full object-cover">
+        <div class="p-4">
+          <h3 class="font-bold">Mount Guntur</h3>
+        </div>
+      </div>
+
+      <div class="bg-white text-black rounded-xl overflow-hidden shadow-lg">
+        <div class="bg-red-600 text-white px-3 py-1 text-xs font-semibold absolute">Scenic View</div>
+        <img src="https://travelspromo.com/wp-content/uploads/2022/05/Pemandangan-dari-puncak-gunung-gede-pangrango.jpg" class="h-40 w-full object-cover">
+        <div class="p-4">
+          <h3 class="font-bold">Mount Gede</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 px-10">
+    <h2 class="text-2xl font-bold mb-6">About West Java Mountain Explorer</h2>
+    <div class="flex flex-col md:flex-row gap-6 items-center">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ5Jbfv_ilLlIIVXJrKZQhIMVzZ5eq2gIRJKMncHY57O9wSQocv0LV2PaCVUOzdHexIh1aB-IYdLDHbjTE6gLpLgWBCssc5VgAax7ZJ95E6Jr654p6to-ljKUnuGSST6LKKwYGT0bFeAzn/s1600/pegunungan-gunung-berapi-di-bali.jpg" alt="West Java" class="w-full md:w-1/2 rounded-lg">
+      <p class="text-gray-300 leading-relaxed">
+        Jawa Barat memiliki banyak gunung, baik aktif maupun tidak aktif, yang memberikan keindahan
+        alam dan ekosistem. Gunung-gunung ini tidak hanya menjadi destinasi wisata dan pendakian,
+        tetapi juga berperan penting dalam menjaga ekosistem serta sumber daya alam di sekitarnya.
+      </p>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section id="map" class="py-16 px-10">
+    <h2 class="text-2xl font-bold mb-6">Persebaran Gunung di Jawa Barat</h2>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+      <iframe src="index.html" width="70%" height="500" style="border: none; border-radius: 5%;"></iframe>
+    </div>
+  </section>
+
+<!-- Footer -->
+<footer class="bg-black py-8 mt-10 border-t border-gray-800">
+  <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+    
+    <!-- Kiri: Logo -->
+    <div class="flex items-center gap-4 mb-4 md:mb-0">
+      <img src="images/GIS.png" alt="MBC Logo" class="h-10">
+      <img src="images/MBC.png" alt="GIS Logo" class="h-10">
+    </div>
+
+    <!-- Kanan: Sosial media -->
+    <div class="flex flex-col items-center md:items-end">
+      <div class="flex justify-center gap-6 text-xl mb-2">
+        <a href="https://www.instagram.com/ilhammyrr_" target="_blank" class="hover:text-gray-400">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammad-ilham-fajri-pratama" target="_blank" class="hover:text-gray-400">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+      <p class="text-sm text-gray-400">Created by Muhammad Ilham Fajri Pratama</p>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
